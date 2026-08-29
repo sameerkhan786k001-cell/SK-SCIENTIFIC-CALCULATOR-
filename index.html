@@ -4,290 +4,244 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#080b14">
-<title>SK Scientific Calculator</title>
+<meta name="description" content="SK Scientific Calculator - free online scientific, statistics, SOM and engineering calculator for students and engineers.">
+<title>SK Scientific Calculator | Scientific, SOM & Engineering</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  --bg:#070a12;--panel:#101522;--panel2:#151b2b;--key:#1a2132;
-  --key2:#202a40;--text:#f5f7ff;--muted:#8e9ab4;--accent:#7c5cff;
-  --accent2:#00d9ff;--danger:#ff5277;--green:#34e6a1;
-}
-body{
-  margin:0;
-  background:
-    radial-gradient(circle at 12% 0%,rgba(105,75,255,.30),transparent 28%),
-    radial-gradient(circle at 92% 12%,rgba(0,214,255,.18),transparent 26%),
-    radial-gradient(circle at 50% 100%,rgba(124,92,255,.12),transparent 38%),
-    linear-gradient(160deg,#05070d,#090d17 48%,#060912);
-  color:var(--text);font-family:Inter,system-ui,Arial,sans-serif;
-  min-height:100vh;display:flex;justify-content:center;overflow-x:hidden;
-}
-.app{width:100%;max-width:760px;min-height:100vh;padding:12px 14px calc(18px + env(safe-area-inset-bottom));}
+:root{--bg:#070a12;--panel:#101522;--panel2:#151b2b;--key:#1a2132;--key2:#202a40;--text:#f5f7ff;--muted:#8e9ab4;--accent:#7c5cff;--accent2:#00d9ff;--danger:#ff5277;--green:#34e6a1}
+body{margin:0;background:radial-gradient(circle at 12% 0%,rgba(105,75,255,.30),transparent 28%),radial-gradient(circle at 92% 12%,rgba(0,214,255,.18),transparent 26%),radial-gradient(circle at 50% 100%,rgba(124,92,255,.12),transparent 38%),linear-gradient(160deg,#05070d,#090d17 48%,#060912);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif;min-height:100vh;display:flex;justify-content:center;overflow-x:hidden}
+.app{width:100%;max-width:760px;min-height:100vh;padding:12px 14px calc(18px + env(safe-area-inset-bottom))}
 .top{display:flex;justify-content:space-between;align-items:center;padding:6px 4px 12px}
 .brand{font-weight:900;letter-spacing:.4px;font-size:20px;text-shadow:0 0 22px rgba(128,103,255,.28)}
 .brand span{color:var(--accent2)}
 .mode{font-size:11px;color:var(--muted);border:1px solid #273149;border-radius:99px;padding:7px 10px;background:#0d1220}
-.display{
-  background:linear-gradient(145deg,rgba(20,27,44,.98),rgba(9,13,23,.98));
-  border:1px solid #28324a;border-radius:25px;padding:18px 16px 15px;
-  box-shadow:0 15px 45px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.04);
-  margin-bottom:10px;min-height:185px;display:flex;flex-direction:column;justify-content:flex-end;
-}
+.display{background:linear-gradient(145deg,rgba(20,27,44,.98),rgba(9,13,23,.98));border:1px solid #28324a;border-radius:25px;padding:18px 16px 15px;box-shadow:0 15px 45px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.04);margin-bottom:10px;min-height:185px;display:flex;flex-direction:column;justify-content:flex-end}
 .history{height:28px;text-align:right;color:#66738f;font-size:13px;overflow:hidden;white-space:nowrap}
 .expr{min-height:48px;text-align:right;font-size:30px;font-weight:700;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
 .expr::-webkit-scrollbar{display:none}
 .result{text-align:right;color:var(--accent2);font-size:15px;min-height:24px;margin-top:5px}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:9px 0}
-.tab{border:1px solid #283149;background:#101726;color:#9eabc4;border-radius:12px;padding:9px 5px;font-weight:700;font-size:12px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:9px 0}
+.tab{border:1px solid #283149;background:#101726;color:#9eabc4;border-radius:12px;padding:10px 4px;font-weight:700;font-size:11px}
 .tab.active{background:linear-gradient(135deg,#32256b,#152f48);color:#fff;border-color:#6552c9}
 .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-button{
-  border:0;color:var(--text);background:linear-gradient(145deg,var(--key2),var(--key));
-  min-height:64px;border-radius:16px;font-size:17px;font-weight:700;
-  box-shadow:0 5px 12px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.035);
-  transition:.12s transform,.12s filter;cursor:pointer;
-}
+button{border:0;color:var(--text);background:linear-gradient(145deg,var(--key2),var(--key));min-height:64px;border-radius:16px;font-size:17px;font-weight:700;box-shadow:0 5px 12px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.035);transition:.12s transform,.12s filter;cursor:pointer}
 button:active{transform:scale(.94);filter:brightness(1.25)}
-.fn{font-size:13px;color:#cbd4e8}
-.op{background:linear-gradient(145deg,#292151,#1c1738);color:#c7bcff}
-.eq{background:linear-gradient(145deg,#8b6bff,#5740d5);font-size:22px}
-.ac{color:#ff8ba5;background:linear-gradient(145deg,#3a1c2c,#241622)}
-.delete-x{color:#ff7d9a;background:linear-gradient(145deg,#321c2a,#1e1720);border:1px solid rgba(255,82,119,.18)}
-.wide{grid-column:span 2}
-.hidden{display:none}
-.more-toggle{
-  width:100%;min-height:44px;margin:10px 0 8px;border-radius:15px;
-  background:linear-gradient(145deg,#171f33,#101522);
-  border:1px solid #303b57;color:#cbd4e8;font-size:13px;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.more-toggle .arrow{font-size:16px;transition:transform .28s ease}
-.more-toggle.open .arrow{transform:rotate(180deg)}
-.extra-panel{
-  max-height:0;overflow:hidden;opacity:0;transform:translateY(-10px);
-  transition:max-height .35s ease,opacity .25s ease,transform .35s ease;
-}
-.extra-panel.open{max-height:520px;opacity:1;transform:translateY(0)}
+.fn{font-size:13px;color:#cbd4e8}.op{background:linear-gradient(145deg,#292151,#1c1738);color:#c7bcff}.eq{background:linear-gradient(145deg,#8b6bff,#5740d5);font-size:22px}.ac{color:#ff8ba5;background:linear-gradient(145deg,#3a1c2c,#241622)}.delete-x{color:#ff7d9a;background:linear-gradient(145deg,#321c2a,#1e1720);border:1px solid rgba(255,82,119,.18)}.wide{grid-column:span 2}.hidden{display:none}
+.more-toggle{width:100%;min-height:44px;margin:10px 0 8px;border-radius:15px;background:linear-gradient(145deg,#171f33,#101522);border:1px solid #303b57;color:#cbd4e8;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px}
+.more-toggle .arrow{font-size:16px;transition:transform .28s ease}.more-toggle.open .arrow{transform:rotate(180deg)}
+.extra-panel{max-height:0;overflow:hidden;opacity:0;transform:translateY(-10px);transition:max-height .35s ease,opacity .25s ease,transform .35s ease}.extra-panel.open{max-height:900px;opacity:1;transform:translateY(0)}
 .section-title{font-size:11px;color:#66738f;text-transform:uppercase;letter-spacing:1.3px;margin:13px 2px 7px}
-.memory{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:7px}
-.memory button{min-height:44px;font-size:11px;background:#111827;color:#9eabc4}
+.section-toggle{width:100%;min-height:44px;margin:8px 0;border-radius:15px;background:linear-gradient(145deg,#171f33,#101522);border:1px solid #303b57;color:#cbd4e8;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px}
+.section-toggle .arrow{font-size:16px;transition:transform .28s ease}.section-toggle.open .arrow{transform:rotate(180deg)}
+.section-content{max-height:0;overflow:hidden;opacity:0;transform:translateY(-8px);transition:max-height .4s ease,opacity .25s ease,transform .35s ease}
+.section-content.open{max-height:2500px;opacity:1;transform:translateY(0)}
+
+.memory{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:7px}.memory button{min-height:44px;font-size:11px;background:#111827;color:#9eabc4}
+.panel-card{background:linear-gradient(145deg,#111827,#0c1220);border:1px solid #29334a;border-radius:16px;padding:10px;margin-top:8px}
+.panel-card h3{font-size:13px;margin:2px 0 8px;color:#dce4f7}.panel-card p{font-size:10px;color:#7f8ca6;margin:0 0 8px;line-height:1.45}
+.calc-btn{min-height:48px;font-size:12px}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px}
+.input-row input,.single-input{width:100%;padding:12px;border-radius:12px;border:1px solid #29334a;background:#0d1422;color:white;outline:0;font-size:14px}
+.unit{font-size:10px;color:#78859d;margin-top:3px}.tab-panel{margin:8px 0 10px}.hint{font-size:10px;color:#78859d;text-align:center;padding:6px 2px}.tab-panel .panel-card{margin-top:7px}
 .footer{text-align:center;color:#58657e;font-size:10px;margin-top:13px}
 select{background:transparent;color:inherit;border:0;font-weight:700;outline:0}
 @media(max-width:520px){.app{padding-left:10px;padding-right:10px}}
-@media(max-width:360px){
-  button{min-height:54px;font-size:15px}
-  .expr{font-size:25px}
-  .app{padding:8px 8px calc(12px + env(safe-area-inset-bottom))}
-}
+@media(max-width:360px){button{min-height:54px;font-size:15px}.expr{font-size:25px}.app{padding:8px 8px calc(12px + env(safe-area-inset-bottom))}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="top">
-    <div class="brand">SK <span>Scientific Calculator</span> ✦</div>
-    <div class="mode"><span id="angleMode">DEG</span> • SCIENTIFIC</div>
-  </div>
+<div class="top"><div class="brand">SK <span>Scientific Calculator</span> ✦</div><div class="mode"><span id="angleMode">DEG</span> • SCIENTIFIC</div></div>
+<div class="display"><div class="history" id="history"></div><div class="expr" id="expr">0</div><div class="result" id="result"></div></div>
 
-  <div class="display">
-    <div class="history" id="history"></div>
-    <div class="expr" id="expr">0</div>
-    <div class="result" id="result"></div>
-  </div>
+<div class="tabs">
+<button class="tab active" data-tab="trig">TRIG</button>
+<button class="tab" data-tab="stats">STATS</button>
+<button class="tab" data-tab="som">SOM</button>
+<button class="tab" data-tab="advanced">ADVANCED</button>
+</div>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="trig">TRIG</button>
-    <button class="tab" data-tab="stats">STATS</button>
-    <button class="tab" data-tab="advanced">ADVANCED</button>
-  </div>
+<!-- TAB CONTENT: shown immediately when a tab is selected -->
+<div id="trigPanel" class="tab-panel">
+<button class="section-toggle" onclick="toggleSection('trigContent',this)"><span>TRIG & SCIENTIFIC FUNCTIONS</span><span class="arrow">⌄</span></button>
+<div id="trigContent" class="section-content"><div class="grid">
+<button class="fn" onclick="fn('sin(')">sin</button><button class="fn" onclick="fn('cos(')">cos</button><button class="fn" onclick="fn('tan(')">tan</button><button class="fn" onclick="fn('asin(')">sin⁻¹</button><button class="fn" onclick="fn('acos(')">cos⁻¹</button>
+<button class="fn" onclick="fn('atan(')">tan⁻¹</button><button class="fn" onclick="fn('log(')">log</button><button class="fn" onclick="fn('ln(')">ln</button><button class="fn" onclick="fn('sqrt(')">√</button><button class="fn" onclick="fn('abs(')">|x|</button>
+<button class="fn" onclick="fn('^2')">x²</button><button class="fn" onclick="fn('^3')">x³</button><button class="fn" onclick="fn('^')">xʸ</button><button class="fn" onclick="fn('10^')">10ˣ</button><button class="fn" onclick="fn('exp(')">eˣ</button>
+<button class="fn" onclick="insert('π')">π</button><button class="fn" onclick="insert('e')">e</button><button class="fn" onclick="insert('(')">(</button><button class="fn" onclick="insert(')')">)</button><button class="fn" onclick="fn('inv(')">1/x</button>
+</div>
+<div class="hint">Tip: DEG/RAD mode ko upar button par tap karke change kar sakte ho.</div></div>
+</div>
 
-  <div class="memory">
-    <button onclick="memory('MC')">MC</button><button onclick="memory('MR')">MR</button>
-    <button onclick="memory('M+')">M+</button><button onclick="memory('M-')">M−</button>
-    <button onclick="memory('MS')">MS</button>
-  </div>
+<div id="statsPanel" class="tab-panel hidden">
+<button class="section-toggle" onclick="toggleSection('statsContent',this)"><span>STATISTICS</span><span class="arrow">⌄</span></button>
+<div id="statsContent" class="section-content"><div class="panel-card"><h3>Data Analysis</h3><p>Numbers ko comma se alag karke enter karo, example: 12, 15, 18, 20, 25</p>
+<input id="statsInput" class="single-input" placeholder="12, 15, 18, 20, 25">
+<div class="grid" style="margin-top:8px"><button class="fn calc-btn" onclick="stats('mean')">Mean</button><button class="fn calc-btn" onclick="stats('median')">Median</button><button class="fn calc-btn" onclick="stats('sd')">Std Dev</button><button class="fn calc-btn" onclick="stats('var')">Variance</button><button class="fn calc-btn" onclick="stats('sum')">Σ Sum</button></div></div></div>
+</div>
 
-  <button class="more-toggle" id="moreToggle" onclick="toggleMore()">
-    <span id="moreText">Scientific Functions</span><span class="arrow">⌄</span>
-  </button>
+<div id="somPanel" class="tab-panel hidden">
+<button class="section-toggle" onclick="toggleSection('somContent',this)"><span>SOM — STRENGTH OF MATERIALS</span><span class="arrow">⌄</span></button>
+<div id="somContent" class="section-content"><div class="panel-card"><h3>Stress, Strain & Elasticity</h3><div class="grid">
+<button class="fn calc-btn" onclick="som('stress')">σ = F/A</button><button class="fn calc-btn" onclick="som('strain')">ε = ΔL/L</button><button class="fn calc-btn" onclick="som('young')">E = σ/ε</button><button class="fn calc-btn" onclick="som('shearStress')">τ = F/A</button><button class="fn calc-btn" onclick="som('shearStrain')">γ = Δx/L</button>
+<button class="fn calc-btn" onclick="som('bulk')">K = p/εv</button><button class="fn calc-btn" onclick="som('poisson')">Poisson ν</button><button class="fn calc-btn" onclick="som('fos')">Factor of Safety</button><button class="fn calc-btn" onclick="som('elongation')">ΔL = FL/AE</button><button class="fn calc-btn" onclick="som('load')">F = σA</button>
+</div></div>
+<div class="panel-card"><h3>Bending & Beams</h3><div class="grid">
+<button class="fn calc-btn" onclick="som('bending')">σ = My/I</button><button class="fn calc-btn" onclick="som('section')">Z = I/y</button><button class="fn calc-btn" onclick="som('moment')">M = σZ</button><button class="fn calc-btn" onclick="som('beamSS')">SS Beam δ</button><button class="fn calc-btn" onclick="som('cantilever')">Cantilever δ</button>
+</div></div>
+<div class="panel-card"><h3>Torsion & Shafts</h3><div class="grid">
+<button class="fn calc-btn" onclick="som('torsionStress')">τ = Tr/J</button><button class="fn calc-btn" onclick="som('polarSolid')">J Solid</button><button class="fn calc-btn" onclick="som('polarHollow')">J Hollow</button><button class="fn calc-btn" onclick="som('twist')">Angle of Twist</button><button class="fn calc-btn" onclick="som('powerTorque')">Power / Torque</button>
+</div></div>
+<div class="panel-card"><h3>Columns & Section Properties</h3><div class="grid">
+<button class="fn calc-btn" onclick="som('euler')">Euler Pcr</button><button class="fn calc-btn" onclick="som('rectArea')">Rectangle Area</button><button class="fn calc-btn" onclick="som('circleArea')">Circle Area</button><button class="fn calc-btn" onclick="som('rectI')">Rect. I</button><button class="fn calc-btn" onclick="som('circleI')">Circle I</button>
+</div></div>
+<div class="panel-card"><h3>More SOM Formulas</h3><div class="grid">
+<button class="fn calc-btn" onclick="som('shearModulus')">G = τ/γ</button><button class="fn calc-btn" onclick="som('bulkFromE')">K from E,ν</button><button class="fn calc-btn" onclick="som('lame')">Lame λ</button><button class="fn calc-btn" onclick="som('strainEnergy')">Strain Energy</button><button class="fn calc-btn" onclick="som('resilience')">Modulus Resilience</button>
+</div></div></div>
+</div>
 
-  <div class="extra-panel" id="extraPanel">
-    <div class="grid">
-      <button class="fn" onclick="fn('sin(')">sin</button>
-      <button class="fn" onclick="fn('cos(')">cos</button>
-      <button class="fn" onclick="fn('tan(')">tan</button>
-      <button class="fn" onclick="fn('log(')">log</button>
-      <button class="fn" onclick="fn('ln(')">ln</button>
-      <button class="fn" onclick="fn('asin(')">sin⁻¹</button>
-      <button class="fn" onclick="fn('acos(')">cos⁻¹</button>
-      <button class="fn" onclick="fn('atan(')">tan⁻¹</button>
-      <button class="fn" onclick="fn('sqrt(')">√</button>
-      <button class="fn" onclick="fn('abs(')">|x|</button>
-      <button class="fn" onclick="fn('^2')">x²</button>
-      <button class="fn" onclick="fn('^3')">x³</button>
-      <button class="fn" onclick="fn('^')">xʸ</button>
-      <button class="fn" onclick="fn('10^')">10ˣ</button>
-      <button class="fn" onclick="fn('exp(')">eˣ</button>
-      <button class="fn" onclick="insert('π')">π</button>
-      <button class="fn" onclick="insert('e')">e</button>
-      <button class="fn" onclick="insert('(')">(</button>
-      <button class="fn" onclick="insert(')')">)</button>
-      <button class="fn" onclick="backspace()">⌫</button>
-    </div>
-  </div>
+<div id="advancedPanel" class="tab-panel hidden">
+<button class="section-toggle" onclick="toggleSection('advancedContent',this)"><span>ENGINEERING CALCULATIONS & CONVERSIONS</span><span class="arrow">⌄</span></button>
+<div id="advancedContent" class="section-content"><div class="panel-card"><h3>Unit Conversions</h3><div class="grid">
+<button class="fn calc-btn" onclick="convert('km-mi')">km → mi</button><button class="fn calc-btn" onclick="convert('mi-km')">mi → km</button><button class="fn calc-btn" onclick="convert('m-ft')">m → ft</button><button class="fn calc-btn" onclick="convert('ft-m')">ft → m</button><button class="fn calc-btn" onclick="convert('c-f')">°C → °F</button>
+<button class="fn calc-btn" onclick="convert('f-c')">°F → °C</button><button class="fn calc-btn" onclick="convert('mm-in')">mm → in</button><button class="fn calc-btn" onclick="convert('in-mm')">in → mm</button><button class="fn calc-btn" onclick="convert('n-lbf')">N → lbf</button><button class="fn calc-btn" onclick="convert('lbf-n')">lbf → N</button>
+<button class="fn calc-btn" onclick="convert('mpa-psi')">MPa → psi</button><button class="fn calc-btn" onclick="convert('psi-mpa')">psi → MPa</button><button class="fn calc-btn" onclick="convert('kw-hp')">kW → hp</button><button class="fn calc-btn" onclick="convert('hp-kw')">hp → kW</button><button class="fn calc-btn" onclick="convert('nm-ftlb')">N·m → ft·lbf</button>
+</div></div>
+<div class="panel-card"><h3>Mechanical Engineering Tools</h3><div class="grid">
+<button class="fn calc-btn" onclick="engineering()">ENG Notation</button><button class="fn calc-btn" onclick="quadratic()">Quadratic</button><button class="fn calc-btn" onclick="gearRatio()">Gear Ratio</button><button class="fn calc-btn" onclick="rpmSpeed()">Cutting Speed/RPM</button><button class="fn calc-btn" onclick="complex()">a + bi</button>
+</div></div></div>
+</div>
 
-  <div class="grid" id="keypad">
-    <button class="ac" onclick="clearAll()">AC</button>
-    <button class="fn delete-x" onclick="backspace()" aria-label="Delete">✕</button>
-    <button class="fn" onclick="toggleSign()">+/−</button>
-    <button class="fn" onclick="insert('%')">%</button>
-    <button class="op" onclick="insert('÷')">÷</button>
-    <button class="op" onclick="insert('×')">×</button>
+<div class="memory">
+<button onclick="memory('MC')">MC</button><button onclick="memory('MR')">MR</button><button onclick="memory('M+')">M+</button><button onclick="memory('M-')">M−</button><button onclick="memory('MS')">MS</button>
+</div>
 
-    <button onclick="insert('7')">7</button><button onclick="insert('8')">8</button><button onclick="insert('9')">9</button>
-    <button class="op" onclick="insert('−')">−</button><button class="fn" onclick="insert('!')">n!</button>
+<button class="more-toggle" id="moreToggle" onclick="toggleMore()"><span id="moreText">Scientific Functions</span><span class="arrow">⌄</span></button>
+<div class="extra-panel" id="extraPanel"><div class="hint">Scientific functions ab TRIG tab me directly available hain.</div></div>
 
-    <button onclick="insert('4')">4</button><button onclick="insert('5')">5</button><button onclick="insert('6')">6</button>
-    <button class="op" onclick="insert('+')">+</button><button class="fn" onclick="fn('inv(')">1/x</button>
+<div class="grid" id="keypad">
+<button class="ac" onclick="clearAll()">AC</button><button class="fn delete-x" onclick="backspace()">✕</button><button class="fn" onclick="toggleSign()">+/−</button><button class="fn" onclick="insert('%')">%</button><button class="op" onclick="insert('÷')">÷</button>
+<button class="op" onclick="insert('×')">×</button><button onclick="insert('7')">7</button><button onclick="insert('8')">8</button><button onclick="insert('9')">9</button><button class="op" onclick="insert('−')">−</button>
+<button class="fn" onclick="insert('!')">n!</button><button onclick="insert('4')">4</button><button onclick="insert('5')">5</button><button onclick="insert('6')">6</button><button class="op" onclick="insert('+')">+</button>
+<button class="fn" onclick="fn('inv(')">1/x</button><button onclick="insert('1')">1</button><button onclick="insert('2')">2</button><button onclick="insert('3')">3</button><button class="eq wide" onclick="calculate()">=</button>
+<button class="wide" onclick="insert('0')">0</button><button onclick="insert('.')">.</button><button class="fn" onclick="insert('Ans')">Ans</button>
+</div>
 
-    <button onclick="insert('1')">1</button><button onclick="insert('2')">2</button><button onclick="insert('3')">3</button>
-    <button class="eq wide" onclick="calculate()">=</button>
+<div id="statsPanel" class="hidden">
+<div class="section-title">Statistics — enter numbers separated by comma</div>
+<input id="statsInput" class="single-input" placeholder="e.g. 12, 15, 18, 20, 25">
+<div class="grid" style="margin-top:8px"><button class="fn" onclick="stats('mean')">Mean</button><button class="fn" onclick="stats('median')">Median</button><button class="fn" onclick="stats('sd')">Std Dev</button><button class="fn" onclick="stats('var')">Variance</button><button class="fn" onclick="stats('sum')">Σ Sum</button></div>
+</div>
 
-    <button class="wide" onclick="insert('0')">0</button><button onclick="insert('.')">.</button>
-    <button class="fn" onclick="insert('Ans')">Ans</button>
-  </div>
+<div id="somPanel" class="hidden">
+<div class="section-title">SOM — Strength of Materials</div>
+<div class="panel-card"><h3>Stress & Strain</h3><p>Basic axial and shear calculations. Enter values in consistent SI units.</p>
+<div class="grid">
+<button class="fn calc-btn" onclick="som('stress')">σ = F/A</button><button class="fn calc-btn" onclick="som('strain')">ε = ΔL/L</button><button class="fn calc-btn" onclick="som('young')">E = σ/ε</button><button class="fn calc-btn" onclick="som('shearStress')">τ = F/A</button><button class="fn calc-btn" onclick="som('shearStrain')">γ = Δx/L</button>
+<button class="fn calc-btn" onclick="som('bulk')">K = p/εv</button><button class="fn calc-btn" onclick="som('poisson')">Poisson ν</button><button class="fn calc-btn" onclick="som('fos')">Factor of Safety</button><button class="fn calc-btn" onclick="som('elongation')">ΔL = FL/AE</button><button class="fn calc-btn" onclick="som('load')">F = σA</button>
+</div></div>
+<div class="panel-card"><h3>Bending & Beam</h3><div class="grid">
+<button class="fn calc-btn" onclick="som('bending')">Bending σ = My/I</button><button class="fn calc-btn" onclick="som('section')">Section Z = I/y</button><button class="fn calc-btn" onclick="som('moment')">Moment M = σZ</button><button class="fn calc-btn" onclick="som('beamSS')">SS Beam δ</button><button class="fn calc-btn" onclick="som('cantilever')">Cantilever δ</button>
+</div></div>
+<div class="panel-card"><h3>Torsion & Shafts</h3><div class="grid">
+<button class="fn calc-btn" onclick="som('torsionStress')">τ = Tr/J</button><button class="fn calc-btn" onclick="som('polarSolid')">J Solid Shaft</button><button class="fn calc-btn" onclick="som('polarHollow')">J Hollow Shaft</button><button class="fn calc-btn" onclick="som('twist')">Angle of Twist</button><button class="fn calc-btn" onclick="som('powerTorque')">Power / Torque</button>
+</div></div>
+<div class="panel-card"><h3>Columns & Properties</h3><div class="grid">
+<button class="fn calc-btn" onclick="som('euler')">Euler Pcr</button><button class="fn calc-btn" onclick="som('rectArea')">Rectangle Area</button><button class="fn calc-btn" onclick="som('circleArea')">Circle Area</button><button class="fn calc-btn" onclick="som('rectI')">Rect. I</button><button class="fn calc-btn" onclick="som('circleI')">Circle I</button>
+</div></div>
+</div>
 
-  <div id="statsPanel" class="hidden">
-    <div class="section-title">Statistics — enter numbers separated by comma</div>
-    <input id="statsInput" placeholder="e.g. 12, 15, 18, 20, 25"
-      style="width:100%;padding:14px;border-radius:14px;border:1px solid #29334a;background:#111827;color:white;outline:0;font-size:15px">
-    <div class="grid" style="margin-top:8px">
-      <button class="fn" onclick="stats('mean')">Mean</button>
-      <button class="fn" onclick="stats('median')">Median</button>
-      <button class="fn" onclick="stats('sd')">Std Dev</button>
-      <button class="fn" onclick="stats('var')">Variance</button>
-      <button class="fn" onclick="stats('sum')">Σ Sum</button>
-    </div>
-  </div>
+<div id="advancedPanel" class="hidden">
+<div class="section-title">Engineering & conversions</div>
+<div class="panel-card"><h3>Unit Conversions</h3><div class="grid">
+<button class="fn calc-btn" onclick="convert('km-mi')">km → mi</button><button class="fn calc-btn" onclick="convert('mi-km')">mi → km</button><button class="fn calc-btn" onclick="convert('m-ft')">m → ft</button><button class="fn calc-btn" onclick="convert('ft-m')">ft → m</button><button class="fn calc-btn" onclick="convert('c-f')">°C → °F</button>
+<button class="fn calc-btn" onclick="convert('f-c')">°F → °C</button><button class="fn calc-btn" onclick="convert('mm-in')">mm → in</button><button class="fn calc-btn" onclick="convert('in-mm')">in → mm</button><button class="fn calc-btn" onclick="convert('n-lbf')">N → lbf</button><button class="fn calc-btn" onclick="convert('lbf-n')">lbf → N</button>
+<button class="fn calc-btn" onclick="convert('mpa-psi')">MPa → psi</button><button class="fn calc-btn" onclick="convert('psi-mpa')">psi → MPa</button><button class="fn calc-btn" onclick="convert('kw-hp')">kW → hp</button><button class="fn calc-btn" onclick="convert('hp-kw')">hp → kW</button><button class="fn calc-btn" onclick="convert('nm-ftlb')">N·m → ft·lbf</button>
+</div></div>
+<div class="panel-card"><h3>Engineering Tools</h3><div class="grid">
+<button class="fn calc-btn" onclick="engineering()">ENG Notation</button><button class="fn calc-btn" onclick="quadratic()">Quadratic</button><button class="fn calc-btn" onclick="complex()">a + bi</button><button class="fn calc-btn" onclick="gearRatio()">Gear Ratio</button><button class="fn calc-btn" onclick="rpmSpeed()">Cutting Speed/RPM</button>
+</div></div>
+</div>
 
-  <div id="advancedPanel" class="hidden">
-    <div class="section-title">Conversions & engineering</div>
-    <div class="grid">
-      <button class="fn" onclick="convert('km-mi')">km → mi</button>
-      <button class="fn" onclick="convert('mi-km')">mi → km</button>
-      <button class="fn" onclick="convert('m-ft')">m → ft</button>
-      <button class="fn" onclick="convert('ft-m')">ft → m</button>
-      <button class="fn" onclick="convert('c-f')">°C → °F</button>
-      <button class="fn" onclick="convert('f-c')">°F → °C</button>
-      <button class="fn" onclick="insert('E')">×10ⁿ</button>
-      <button class="fn" onclick="engineering()">ENG</button>
-      <button class="fn" onclick="complex()">a+bi</button>
-      <button class="fn" onclick="quadratic()">ax²+bx+c</button>
-    </div>
-  </div>
-
-  <div class="footer">SK Scientific Calculator • Offline scientific calculator • Your calculations stay on your device</div>
+<div class="footer">SK Scientific Calculator • Scientific • Statistics • SOM • Engineering • Offline</div>
 </div>
 
 <script>
-let expression='', ans=0, mem=0, angle='DEG';
-
-const exprEl=document.getElementById('expr'), resultEl=document.getElementById('result'), historyEl=document.getElementById('history');
-
-function toggleMore(){
-  const panel=document.getElementById('extraPanel');
-  const btn=document.getElementById('moreToggle');
-  const text=document.getElementById('moreText');
-  panel.classList.toggle('open');
-  btn.classList.toggle('open');
-  text.textContent=panel.classList.contains('open')?'Hide Scientific Functions':'Scientific Functions';
-}
-function render(){exprEl.textContent=expression||'0';}
-function insert(v){ if(expression==='0') expression=''; expression+=v; render(); }
-function fn(v){insert(v);}
-function clearAll(){expression='';resultEl.textContent='';historyEl.textContent='';render();}
-function backspace(){if(expression){expression=expression.slice(0,-1);render();}else{resultEl.textContent='';}}
-function toggleSign(){if(expression) expression=expression.startsWith('-')?expression.slice(1):'-('+expression+')';render();}
-function factorial(n){if(n<0||!Number.isInteger(n)||n>170) throw Error('Invalid factorial');let r=1;for(let i=2;i<=n;i++)r*=i;return r;}
-function trig(name,x){
-  let r=angle==='DEG'?x*Math.PI/180:x;
-  if(name==='sin') return Math.sin(r); if(name==='cos') return Math.cos(r); if(name==='tan') return Math.tan(r);
-  if(name==='asin') return angle==='DEG'?Math.asin(x)*180/Math.PI:Math.asin(x);
-  if(name==='acos') return angle==='DEG'?Math.acos(x)*180/Math.PI:Math.acos(x);
-  if(name==='atan') return angle==='DEG'?Math.atan(x)*180/Math.PI:Math.atan(x);
-}
+let expression='',ans=0,mem=0,angle='DEG';
+const exprEl=document.getElementById('expr'),resultEl=document.getElementById('result'),historyEl=document.getElementById('history');
+function toggleMore(){const panel=document.getElementById('extraPanel'),btn=document.getElementById('moreToggle'),text=document.getElementById('moreText');panel.classList.toggle('open');btn.classList.toggle('open');text.textContent=panel.classList.contains('open')?'Hide Scientific Functions':'Scientific Functions'}
+function render(){exprEl.textContent=expression||'0'}
+function insert(v){if(expression==='0')expression='';expression+=v;render()}
+function fn(v){insert(v)}
+function clearAll(){expression='';resultEl.textContent='';historyEl.textContent='';render()}
+function backspace(){if(expression){expression=expression.slice(0,-1);render()}else resultEl.textContent=''}
+function toggleSign(){if(expression)expression=expression.startsWith('-')?expression.slice(1):'-('+expression+')';render()}
+function factorial(n){if(n<0||!Number.isInteger(n)||n>170)throw Error('Invalid factorial');let r=1;for(let i=2;i<=n;i++)r*=i;return r}
+function trig(name,x){let r=angle==='DEG'?x*Math.PI/180:x;if(name==='sin')return Math.sin(r);if(name==='cos')return Math.cos(r);if(name==='tan')return Math.tan(r);if(name==='asin')return angle==='DEG'?Math.asin(x)*180/Math.PI:Math.asin(x);if(name==='acos')return angle==='DEG'?Math.acos(x)*180/Math.PI:Math.acos(x);if(name==='atan')return angle==='DEG'?Math.atan(x)*180/Math.PI:Math.atan(x)}
 function evaluate(s){
-  s=s.replaceAll('π','Math.PI').replaceAll('Ans','ans').replaceAll('÷','/').replaceAll('×','*').replaceAll('−','-');
-  s=s.replace(/(\d+(?:\.\d+)?)%/g,'($1/100)');
-  s=s.replace(/\^/g,'**');
-  s=s.replace(/\bsin\(/g,'trig("sin",').replace(/\bcos\(/g,'trig("cos",').replace(/\btan\(/g,'trig("tan",');
-  s=s.replace(/\basin\(/g,'trig("asin",').replace(/\bacos\(/g,'trig("acos",').replace(/\batan\(/g,'trig("atan",');
-  s=s.replace(/\bsqrt\(/g,'Math.sqrt(').replace(/\blog\(/g,'Math.log10(').replace(/\bln\(/g,'Math.log(');
-  s=s.replace(/\babs\(/g,'Math.abs(').replace(/\bexp\(/g,'Math.exp(').replace(/\binv\(/g,'(1/').replace(/\be\b/g,'Math.E');
-  s=s.replace(/(\d+(?:\.\d+)?)!/g,'factorial($1)');
-  if(s.includes('E')) s=s.replace(/(\d+(?:\.\d+)?)E([+-]?\d+)/g,'($1*10**$2)');
-  if(!/^[0-9+\-*/().,\sA-Za-z_*"]+$/.test(s)) throw Error('Invalid expression');
-  return Function('trig','factorial','ans','Math',`return ${s}`)(trig,factorial,ans,Math);
+s=s.replaceAll('π','Math.PI').replaceAll('Ans','ans').replaceAll('÷','/').replaceAll('×','*').replaceAll('−','-');
+s=s.replace(/(\d+(?:\.\d+)?)%/g,'($1/100)').replace(/\^/g,'**');
+s=s.replace(/\bsin\(/g,'trig("sin",').replace(/\bcos\(/g,'trig("cos",').replace(/\btan\(/g,'trig("tan",');
+s=s.replace(/\basin\(/g,'trig("asin",').replace(/\bacos\(/g,'trig("acos",').replace(/\batan\(/g,'trig("atan",');
+s=s.replace(/\bsqrt\(/g,'Math.sqrt(').replace(/\blog\(/g,'Math.log10(').replace(/\bln\(/g,'Math.log(');
+s=s.replace(/\babs\(/g,'Math.abs(').replace(/\bexp\(/g,'Math.exp(').replace(/\binv\(/g,'(1/').replace(/\be\b/g,'Math.E');
+s=s.replace(/(\d+(?:\.\d+)?)!/g,'factorial($1)');
+if(s.includes('E'))s=s.replace(/(\d+(?:\.\d+)?)E([+-]?\d+)/g,'($1*10**$2)');
+if(!/^[0-9+\-*/().,\sA-Za-z_*"]+$/.test(s))throw Error('Invalid expression');
+return Function('trig','factorial','ans','Math',`return ${s}`)(trig,factorial,ans,Math)
 }
-function calculate(){
-  try{
-    let v=evaluate(expression);
-    if(!Number.isFinite(v)) throw Error('Math error');
-    ans=v;historyEl.textContent=expression+' =';resultEl.textContent=format(v);expression=String(round(v));render();
-  }catch(e){resultEl.textContent='Error';}
-}
-function round(v){return Number(Number(v).toPrecision(12));}
-function format(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:10});}
-
-function memory(a){
-  try{
-    if(a==='MC')mem=0;
-    if(a==='MR')insert(String(mem));
-    if(a==='MS')mem=evaluate(expression);
-    if(a==='M+')mem+=evaluate(expression);
-    if(a==='M-')mem-=evaluate(expression);
-    resultEl.textContent='M = '+format(mem);
-  }catch(e){resultEl.textContent='Memory error'}
-}
-function stats(type){
-  let a=document.getElementById('statsInput').value.split(',').map(Number).filter(Number.isFinite);
-  if(!a.length){resultEl.textContent='Enter numbers';return}
-  a.sort((x,y)=>x-y); let sum=a.reduce((x,y)=>x+y,0), mean=sum/a.length;
-  let v=a.reduce((x,y)=>x+(y-mean)**2,0)/a.length;
-  let out=type==='mean'?mean:type==='median'?(a.length%2?a[(a.length-1)/2]:(a[a.length/2-1]+a[a.length/2])/2):type==='sd'?Math.sqrt(v):type==='var'?v:sum;
-  resultEl.textContent=format(out);
-}
-function convert(type){
-  let x=Number(prompt('Enter value:')); if(!Number.isFinite(x))return;
-  let r={ 'km-mi':x*.621371,'mi-km':x*1.609344,'m-ft':x*3.28084,'ft-m':x*.3048,'c-f':x*9/5+32,'f-c':(x-32)*5/9}[type];
-  resultEl.textContent=format(r);
-}
-function engineering(){
-  try{let x=evaluate(expression);let e=Math.floor(Math.log10(Math.abs(x))/3)*3;resultEl.textContent=round(x/10**e)+' × 10^'+e}catch(e){resultEl.textContent='Error'}
-}
-function complex(){resultEl.textContent='Complex-number mode: use a+bi notation';}
-function quadratic(){
-  let a=Number(prompt('a =')),b=Number(prompt('b =')),c=Number(prompt('c ='));
-  if(!a){resultEl.textContent='a cannot be 0';return}
-  let d=b*b-4*a*c;
-  if(d<0){resultEl.textContent='No real roots';return}
-  resultEl.textContent='x₁='+format((-b+Math.sqrt(d))/(2*a))+'  x₂='+format((-b-Math.sqrt(d))/(2*a));
-}
-
-document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
-  document.getElementById('statsPanel').classList.toggle('hidden',t.dataset.tab!=='stats');
-  document.getElementById('advancedPanel').classList.toggle('hidden',t.dataset.tab!=='advanced');
-});
-document.querySelector('.mode').onclick=()=>{
-  angle=angle==='DEG'?'RAD':'DEG';document.getElementById('angleMode').textContent=angle;
-};
-document.addEventListener('keydown',e=>{
-  const k=e.key;
-  if(/[0-9.]/.test(k))insert(k);
-  else if(k==='+')insert('+');else if(k==='-')insert('−');else if(k==='*')insert('×');else if(k==='/')insert('÷');
-  else if(k==='Enter'||k==='=')calculate();else if(k==='Backspace')backspace();else if(k==='Escape')clearAll();
-});
-render();
+function calculate(){try{let v=evaluate(expression);if(!Number.isFinite(v))throw Error('Math error');ans=v;historyEl.textContent=expression+' =';resultEl.textContent=format(v);expression=String(round(v));render()}catch(e){resultEl.textContent='Error'}}
+function round(v){return Number(Number(v).toPrecision(12))}
+function format(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:10})}
+function memory(a){try{if(a==='MC')mem=0;if(a==='MR')insert(String(mem));if(a==='MS')mem=evaluate(expression);if(a==='M+')mem+=evaluate(expression);if(a==='M-')mem-=evaluate(expression);resultEl.textContent='M = '+format(mem)}catch(e){resultEl.textContent='Memory error'}}
+function stats(type){let a=document.getElementById('statsInput').value.split(',').map(Number).filter(Number.isFinite);if(!a.length){resultEl.textContent='Enter numbers';return}a.sort((x,y)=>x-y);let sum=a.reduce((x,y)=>x+y,0),mean=sum/a.length,v=a.reduce((x,y)=>x+(y-mean)**2,0)/a.length;let out=type==='mean'?mean:type==='median'?(a.length%2?a[(a.length-1)/2]:(a[a.length/2-1]+a[a.length/2])/2):type==='sd'?Math.sqrt(v):type==='var'?v:sum;resultEl.textContent=format(out)}
+function ask(label){let v=Number(prompt(label));return Number.isFinite(v)?v:null}
+function show(label,v,unit=''){if(v===null)return;resultEl.textContent=label+' = '+format(v)+(unit?' '+unit:'')}
+function som(type){
+try{
+let F,A,dl,L,sigma,eps,E,p,ev,lat,longs,y,I,M,Z,T,r,J,G,d,P,N,K;
+if(type==='stress'){F=ask('Force F (N) =');A=ask('Area A (m²) =');if(F===null||A===null||A===0)return;show('Stress σ',F/A,'Pa')}
+else if(type==='strain'){dl=ask('Change in length ΔL (m) =');L=ask('Original length L (m) =');if(dl===null||L===null||L===0)return;show('Strain ε',dl/L)}
+else if(type==='young'){sigma=ask('Stress σ (Pa) =');eps=ask('Strain ε =');if(sigma===null||eps===null||eps===0)return;show("Young's E",sigma/eps,'Pa')}
+else if(type==='shearStress'){F=ask('Shear force F (N) =');A=ask('Shear area A (m²) =');if(F===null||A===null||A===0)return;show('Shear stress τ',F/A,'Pa')}
+else if(type==='shearStrain'){dl=ask('Shear displacement Δx (m) =');L=ask('Original length L (m) =');if(dl===null||L===null||L===0)return;show('Shear strain γ',dl/L)}
+else if(type==='bulk'){p=ask('Pressure change p (Pa) =');ev=ask('Volumetric strain =');if(p===null||ev===null||ev===0)return;show('Bulk modulus K',p/ev,'Pa')}
+else if(type==='poisson'){lat=ask('Lateral strain =');longs=ask('Longitudinal strain =');if(lat===null||longs===null||longs===0)return;show('Poisson ratio ν',-lat/longs)}
+else if(type==='fos'){sigma=ask('Yield/ultimate stress (Pa) =');eps=ask('Working stress (Pa) =');if(sigma===null||eps===null||eps===0)return;show('Factor of Safety',sigma/eps)}
+else if(type==='elongation'){F=ask('Force F (N) =');L=ask('Length L (m) =');A=ask('Area A (m²) =');E=ask("Young's modulus E (Pa) =");if([F,L,A,E].some(v=>v===null)||A===0||E===0)return;show('Elongation ΔL',F*L/(A*E),'m')}
+else if(type==='load'){sigma=ask('Stress σ (Pa) =');A=ask('Area A (m²) =');if(sigma===null||A===null)return;show('Axial load F',sigma*A,'N')}
+else if(type==='bending'){M=ask('Bending moment M (N·m) =');y=ask('Distance y from neutral axis (m) =');I=ask('Second moment I (m⁴) =');if([M,y,I].some(v=>v===null)||I===0)return;show('Bending stress σ',M*y/I,'Pa')}
+else if(type==='section'){I=ask('Second moment I (m⁴) =');y=ask('Outer-fibre distance y (m) =');if(I===null||y===null||y===0)return;show('Section modulus Z',I/y,'m³')}
+else if(type==='moment'){sigma=ask('Bending stress σ (Pa) =');Z=ask('Section modulus Z (m³) =');if(sigma===null||Z===null)return;show('Bending moment M',sigma*Z,'N·m')}
+else if(type==='beamSS'){P=ask('Central load P (N) =');L=ask('Span L (m) =');E=ask("Young's modulus E (Pa) =");I=ask('Second moment I (m⁴) =');if([P,L,E,I].some(v=>v===null)||E===0||I===0)return;show('SS beam deflection δ',P*L**3/(48*E*I),'m')}
+else if(type==='cantilever'){P=ask('End load P (N) =');L=ask('Length L (m) =');E=ask("Young's modulus E (Pa) =");I=ask('Second moment I (m⁴) =');if([P,L,E,I].some(v=>v===null)||E===0||I===0)return;show('Cantilever deflection δ',P*L**3/(3*E*I),'m')}
+else if(type==='torsionStress'){T=ask('Torque T (N·m) =');r=ask('Radius r (m) =');J=ask('Polar moment J (m⁴) =');if([T,r,J].some(v=>v===null)||J===0)return;show('Torsional shear τ',T*r/J,'Pa')}
+else if(type==='polarSolid'){d=ask('Solid shaft diameter d (m) =');if(d===null)return;show('Polar moment J',Math.PI*d**4/32,'m⁴')}
+else if(type==='polarHollow'){D=ask('Outer diameter D (m) =');d=ask('Inner diameter d (m) =');if([D,d].some(v=>v===null))return;show('Polar moment J',Math.PI*(D**4-d**4)/32,'m⁴')}
+else if(type==='twist'){T=ask('Torque T (N·m) =');L=ask('Shaft length L (m) =');J=ask('Polar moment J (m⁴) =');G=ask('Shear modulus G (Pa) =');if([T,L,J,G].some(v=>v===null)||J===0||G===0)return;show('Angle of twist θ',T*L/(J*G),'rad')}
+else if(type==='powerTorque'){let mode=prompt('Type P for Torque from Power, or T for Power from Torque:');if(!mode)return;if(mode.toUpperCase()==='P'){P=ask('Power (kW) =');N=ask('Speed N (rpm) =');if(P===null||N===null||N===0)return;show('Torque T',9550*P/N,'N·m')}else{T=ask('Torque T (N·m) =');N=ask('Speed N (rpm) =');if(T===null||N===null)return;show('Power P',T*N/9550,'kW')}}
+else if(type==='euler'){E=ask("Young's modulus E (Pa) =");I=ask('Second moment I (m⁴) =');L=ask('Effective length L (m) =');K=ask('Effective length factor K =');if([E,I,L,K].some(v=>v===null)||L===0||K===0)return;show('Euler critical load Pcr',Math.PI**2*E*I/(K*L)**2,'N')}
+else if(type==='rectArea'){let b=ask('Width b (m) =');let h=ask('Height h (m) =');if(b===null||h===null)return;show('Area A',b*h,'m²')}
+else if(type==='circleArea'){d=ask('Diameter d (m) =');if(d===null)return;show('Area A',Math.PI*d*d/4,'m²')}
+else if(type==='rectI'){let b=ask('Width b (m) =');let h=ask('Height h (m) =');if(b===null||h===null)return;show('Rectangular I',b*h**3/12,'m⁴')}
+else if(type==='circleI'){d=ask('Diameter d (m) =');if(d===null)return;show('Circle I',Math.PI*d**4/64,'m⁴')}
+else if(type==='shearModulus'){sigma=ask('Shear stress τ (Pa) =');eps=ask('Shear strain γ =');if(sigma===null||eps===null||eps===0)return;show('Shear modulus G',sigma/eps,'Pa')}
+else if(type==='bulkFromE'){E=ask("Young's modulus E (Pa) =");let nu=ask('Poisson ratio ν =');if(E===null||nu===null||1+nu===0||1-2*nu===0)return;show('Bulk modulus K',E/(3*(1-2*nu)),'Pa')}
+else if(type==='lame'){E=ask("Young's modulus E (Pa) =");let nu=ask('Poisson ratio ν =');if(E===null||nu===null||(1+nu)*(1-2*nu)===0)return;show('Lame constant λ',E*nu/((1+nu)*(1-2*nu)),'Pa')}
+else if(type==='strainEnergy'){sigma=ask('Stress σ (Pa) =');let V=ask('Volume V (m³) =');E=ask("Young's modulus E (Pa) =");if(sigma===null||V===null||E===null||E===0)return;show('Strain energy U',sigma*sigma*V/(2*E),'J')}
+else if(type==='resilience'){sigma=ask('Elastic stress σ (Pa) =');E=ask("Young's modulus E (Pa) =");if(sigma===null||E===null||E===0)return;show('Modulus of resilience',sigma*sigma/(2*E),'J/m³')}
+}catch(e){resultEl.textContent='Error'}}
+function convert(type){let x=ask('Enter value:');if(x===null)return;let r={'km-mi':x*.621371,'mi-km':x*1.609344,'m-ft':x*3.28084,'ft-m':x*.3048,'c-f':x*9/5+32,'f-c':(x-32)*5/9,'mm-in':x/25.4,'in-mm':x*25.4,'n-lbf':x*.224808943,'lbf-n':x*4.4482216153,'mpa-psi':x*145.0377377,'psi-mpa':x/145.0377377,'kw-hp':x*1.34102209,'hp-kw':x/1.34102209,'nm-ftlb':x*.737562149,'ftlb-nm':x/0.737562149}[type];show('Result',r)}
+function engineering(){try{let x=evaluate(expression);if(x===0){resultEl.textContent='0';return}let e=Math.floor(Math.log10(Math.abs(x))/3)*3;resultEl.textContent=round(x/10**e)+' × 10^'+e}catch(e){resultEl.textContent='Error'}}
+function complex(){resultEl.textContent='Complex-number mode: use a + bi notation'}
+function quadratic(){let a=ask('a ='),b=ask('b ='),c=ask('c =');if(a===null||b===null||c===null)return;if(a===0){resultEl.textContent='a cannot be 0';return}let d=b*b-4*a*c;if(d<0){resultEl.textContent='No real roots';return}resultEl.textContent='x₁='+format((-b+Math.sqrt(d))/(2*a))+'  x₂='+format((-b-Math.sqrt(d))/(2*a))}
+function gearRatio(){let n1=ask('Driver speed N1 (rpm) =');let n2=ask('Driven speed N2 (rpm) =');if(n1===null||n2===null||n2===0)return;show('Speed ratio N1/N2',n1/n2)}
+function rpmSpeed(){let mode=prompt('Type S for cutting speed from RPM, or R for RPM from cutting speed:');if(!mode)return;if(mode.toUpperCase()==='S'){let D=ask('Diameter D (mm) =');let N=ask('RPM =');if(D===null||N===null)return;show('Cutting speed V',Math.PI*D*N/1000,'m/min')}else{let V=ask('Cutting speed V (m/min) =');let D=ask('Diameter D (mm) =');if(V===null||D===null||D===0)return;show('RPM N',1000*V/(Math.PI*D),'rpm')}}
+function toggleSection(id,btn){const panel=document.getElementById(id);if(!panel)return;const open=panel.classList.toggle('open');btn.classList.toggle('open',open)}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');['trig','stats','som','advanced'].forEach(id=>document.getElementById(id+'Panel').classList.toggle('hidden',t.dataset.tab!==id));window.scrollTo({top:0,behavior:'smooth'})})
+document.querySelector('.mode').onclick=()=>{angle=angle==='DEG'?'RAD':'DEG';document.getElementById('angleMode').textContent=angle}
+document.addEventListener('keydown',e=>{const k=e.key;if(/[0-9.]/.test(k))insert(k);else if(k==='+')insert('+');else if(k==='-')insert('−');else if(k==='*')insert('×');else if(k==='/')insert('÷');else if(k==='Enter'||k==='=')calculate();else if(k==='Backspace')backspace();else if(k==='Escape')clearAll()})
+render()
 </script>
 </body>
 </html>
